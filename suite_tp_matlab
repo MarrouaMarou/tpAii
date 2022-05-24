@@ -1,0 +1,17 @@
+y_predicted = model.predict(X_test_flattened)
+y_predicted_labels = [np.argmax(i) for i in y_predicted]
+matrix = tf.math.confusion_matrix(labels=y_test,predictions=y_predicted_labels)
+cpt = sum(np.diagonal(matrix))
+err = np.sum(matrix)-cpt
+print("the corretly classified instances :(sum of diagonal elements of the confusion matrix :          cpt =",cpt)
+print("the corretly classified instances :(sum of all matrix elements minus the correctly classified :          err=",err )
+
+
+#***********************************************************************
+
+#as we notice as much as the square is lighter the number of correctly classified instances is higher
+import seaborn as sn
+plt.figure(figsize = (10,7))
+sn.heatmap(matrix, annot=True, fmt='d')
+plt.xlabel('Predicted')
+plt.ylabel('Truth')
